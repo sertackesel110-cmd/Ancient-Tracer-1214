@@ -11,13 +11,10 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.ArrayList;
 
 public class AddonTemplate extends MeteorAddon {
-    public static final Logger LOG = LoggerFactory.getLogger("Tracer");
     public static final Category CATEGORY = new Category("Custom");
 
     @Override
@@ -51,12 +48,12 @@ public class AddonTemplate extends MeteorAddon {
         );
 
         public UniversalTracer() {
-            super(CATEGORY, "tracer", "Universal tracer");
+            super(CATEGORY, "tracer", "Tracer");
         }
 
         @EventHandler
         private void onRender(Render3DEvent event) {
-            if (mc.world == null || mc.player == null) return;
+            if (mc.world == null || mc.player == null || event.renderer == null) return;
 
             for (Entity entity : mc.world.getEntities()) {
                 if (entity instanceof ItemEntity item) {
