@@ -1,11 +1,7 @@
 {
   "required": true,
-  "minMixineerVersion": "0.8",
   "package": "com.example.addon.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
-  "client": [],
-  "injectors": {
-    "defaultRequire": 1
-  }
+  "client": []
 }
