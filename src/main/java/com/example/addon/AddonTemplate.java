@@ -51,18 +51,16 @@ public class AddonTemplate extends MeteorAddon {
         );
 
         public UniversalTracer() {
-            super(CATEGORY, "tracer", "Traces items.");
+            super(CATEGORY, "tracer", "Universal tracer");
         }
 
         @EventHandler
         private void onRender(Render3DEvent event) {
-            // Siyah ekrani onlemek icin en kritik guvenlik satiri
-            if (mc.world == null || mc.player == null || event.renderer == null) return;
+            if (mc.world == null || mc.player == null) return;
 
             for (Entity entity : mc.world.getEntities()) {
                 if (entity instanceof ItemEntity item) {
                     if (items.get().contains(item.getStack().getItem())) {
-                        // Basit render hattı
                         event.renderer.line(
                             mc.player.getX(), mc.player.getEyeY(), mc.player.getZ(),
                             item.getX(), item.getY(), item.getZ(),
