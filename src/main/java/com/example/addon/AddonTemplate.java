@@ -17,12 +17,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class AddonTemplate extends MeteorAddon {
-    public static final Logger LOG = LoggerFactory.getLogger("UniversalTracer");
+    public static final Logger LOG = LoggerFactory.getLogger("Tracer");
     public static final Category CATEGORY = new Category("Custom");
 
     @Override
     public void onInitialize() {
-        LOG.info("Tracer initialized.");
         Modules.get().add(new UniversalTracer());
     }
 
@@ -41,29 +40,29 @@ public class AddonTemplate extends MeteorAddon {
 
         private final Setting<List<Item>> items = sgGeneral.add(new ItemListSetting.Builder()
             .name("items")
-            .description("Select items to trace.")
             .defaultValue(new ArrayList<>())
             .build()
         );
 
         private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder()
             .name("color")
-            .description("Line color.")
-            .defaultValue(new SettingColor(0, 255, 255, 255))
+            .defaultValue(new SettingColor(255, 0, 0, 255))
             .build()
         );
 
         public UniversalTracer() {
-            super(CATEGORY, "universal-tracer", "Traces selected dropped items.");
+            super(CATEGORY, "tracer", "Traces items.");
         }
 
         @EventHandler
         private void onRender(Render3DEvent event) {
-            if (mc.world == null || mc.player == null) return;
+            // Siyah ekrani onlemek icin en kritik guvenlik satiri
+            if (mc.world == null || mc.player == null || event.renderer == null) return;
 
             for (Entity entity : mc.world.getEntities()) {
                 if (entity instanceof ItemEntity item) {
                     if (items.get().contains(item.getStack().getItem())) {
+                        // Basit render hattı
                         event.renderer.line(
                             mc.player.getX(), mc.player.getEyeY(), mc.player.getZ(),
                             item.getX(), item.getY(), item.getZ(),
